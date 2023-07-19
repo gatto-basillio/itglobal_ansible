@@ -1,0 +1,4 @@
+---
+ansible_user                : root
+ansible_ssh_privat_key_file : /home/psi/.ssh/id_ed25519
+...
