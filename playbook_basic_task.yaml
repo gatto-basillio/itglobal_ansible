@@ -10,8 +10,6 @@
   - name: Update and upgrade all programms
     ansible.builtin.apt:
       update_cache: yes
-      name: "*"
-      state: latest
 
 
   - name: Add new user
@@ -24,7 +22,6 @@
     ansible.builtin.group:
       name: sudo
       state: present
-
   - name: Give sudo for user
     ansible.builtin.user:
       name: "{{ create_user }}"
@@ -34,11 +31,9 @@
 
   - name: Add SSH key for user
     ansible.builtin.authorized_key:
-        user: "{{ create_user }}"
-        state: present
-        key: "{{ SSH_key }}"
-    notify: Restart SSH service
-
+      user: "{{ create_user }}"
+      state: present
+      key: "{{ SSH_key }}"
 
   - name: Installing utilities mc, htop, atop, ncdu
     ansible.builtin.apt:
@@ -48,27 +43,26 @@
         - atop
         - ncdu
 
-
   - name: Changing SSH-port
     ansible.builtin.lineinfile:
-        path: /etc/ssh/sshd_config
-        state: present
-        regexp: '^#Port 22'
-        line: 'Port "{{ ssh_port }}"'
-
+      path: /etc/ssh/sshd_config
+      state: present
+      regexp: '^#Port 22'
+      line: 'Port {{ ssh_port }}'
 
   - name: Disabling password autentification
     ansible.builtin.lineinfile:
-        path: /etc/ssh/sshd_config
-        state: present
-        regexp: '^PasswordAuthentication yes'
-        line: 'PasswordAuthentication no'
+      path: /etc/ssh/sshd_config
+      state: present
+      regexp: '^#PasswordAuthentication yes'
+      line: 'PasswordAuthentication no'
+    notify: Restart SSH service
+
 
 
   handlers:
   - name: Restart SSH service
-    service:
+    systemd:
       name: ssh
       state: restarted
 ...
-

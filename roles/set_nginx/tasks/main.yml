@@ -1,0 +1,30 @@
+---
+# tasks file for set_server_and_install_nginx
+
+- name: Delete default configuretion for Nginx
+  ansible.builtin.file:
+    path: "/etc/nginx/sites-enabled/default"
+    state: absent
+
+- name: Set configuretion for Nginx
+  ansible.builtin.copy:
+    src: "default"
+    dest: "/etc/nginx/sites-enabled/"
+  notify: Nginx systemd
+
+- name: Install Nginx
+  ansible.builtin.apt:
+    update_cache: yes
+    name: nginx
+    state: latest
+
+- name: Delete /var/www/html folder
+  ansible.builtin.file:
+    path: "/var/www/html"
+    state: absent
+
+- name: Copy folder html with lending to /var/www/
+  ansible.builtin.copy:
+    src: "html"
+    dest: "/var/www/"
+...

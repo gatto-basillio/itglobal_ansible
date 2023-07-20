@@ -1,0 +1,8 @@
+---
+# tasks file for add_SSH-key_to_user
+
+- name: Add SSH key for user
+  ansible.builtin.authorized_key:
+    user: "{{ create_user }}"
+    state: present
+    key: "{{ SSH_key }}"

@@ -1,0 +1,10 @@
+---
+# tasks file for install_utilites
+
+- name: Installing utilities mc, htop, atop, ncdu
+  ansible.builtin.apt:
+    name:
+      - mc
+      - htop
+      - atop
+      - ncdu
