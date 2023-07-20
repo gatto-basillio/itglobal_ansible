@@ -4,5 +4,6 @@ all:
     QUALIFICATION_WORK:
       hosts:
         host_1:
-          ansible_host: 93.183.75.34
+          ansible_host: 93.183.74.4
+          ansible_port: 22
 ...

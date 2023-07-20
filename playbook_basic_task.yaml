@@ -10,8 +10,6 @@
   - name: Update and upgrade all programms
     ansible.builtin.apt:
       update_cache: yes
-      name: "*"
-      state: latest
 
 
   - name: Add new user
@@ -24,7 +22,6 @@
     ansible.builtin.group:
       name: sudo
       state: present
-
   - name: Give sudo for user
     ansible.builtin.user:
       name: "{{ create_user }}"
@@ -37,8 +34,6 @@
       user: "{{ create_user }}"
       state: present
       key: "{{ SSH_key }}"
-    notify: Restart SSH service
-
 
   - name: Installing utilities mc, htop, atop, ncdu
     ansible.builtin.apt:
@@ -48,64 +43,26 @@
         - atop
         - ncdu
 
-
   - name: Changing SSH-port
     ansible.builtin.lineinfile:
       path: /etc/ssh/sshd_config
       state: present
       regexp: '^#Port 22'
-      line: 'Port "{{ ssh_port }}"'
-
+      line: 'Port {{ ssh_port }}'
 
   - name: Disabling password autentification
     ansible.builtin.lineinfile:
       path: /etc/ssh/sshd_config
       state: present
-      regexp: '^PasswordAuthentication yes'
+      regexp: '^#PasswordAuthentication yes'
       line: 'PasswordAuthentication no'
-
-
-
-
-  - name: Install Nginx
-    ansible.builtin.apt:
-      name: nginx
-      state: latest
-      update_cache: yes
     notify: Restart SSH service
-
-  - name: Delete default configuretion for Nginx
-    ansible.builtin.file:
-      path: "/etc/nginx/sites-enabled/default"
-      state: absent
-
-  - name: Set configuretion for Nginx
-    ansible.builtin.copy:
-      src: "default"
-      dest: "/etc/nginx/sites-enabled/"
-
-  - name: Delete /var/www/html folder
-    ansible.builtin.file:
-      path: "/var/www/html"
-      state: absent
-
-  - name: Copy folder html with lending to /var/www/
-    ansible.builtin.copy:
-      src: "html"
-      dest: "/var/www/"
-
 
 
 
   handlers:
   - name: Restart SSH service
-    service:
+    systemd:
       name: ssh
       state: restarted
-  - name: nginx systemd
-    service:
-      name: nginx
-      enabled: yes
-      state: restarted
 ...
-

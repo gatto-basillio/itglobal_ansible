@@ -1,0 +1,15 @@
+---
+- name: Full basic setting server and set Nginx
+  hosts: host_1
+  become: yes
+
+  roles:
+    - update_and_upgrade_all_programs
+    - add_new_user
+    - make_user_as_sudoer
+    - add_SSH-key_to_user
+    - install_utilites
+    - change_ssh-port_and_password
+    - set_nginx
+...
+

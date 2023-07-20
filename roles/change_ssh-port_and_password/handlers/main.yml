@@ -1,0 +1,7 @@
+---
+# handlers file for change_ssh-port_and_password
+
+- name: Restart SSH service
+  systemd:
+    name: ssh
+    state: restarted

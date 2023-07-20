@@ -1,0 +1,3 @@
+---
+# vars file for change_ssh-port_and_password
+ssh_port    : 10022

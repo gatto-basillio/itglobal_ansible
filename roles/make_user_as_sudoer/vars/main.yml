@@ -1,0 +1,3 @@
+---
+# vars file for make_user_as_sudoer
+create_user : dmitriy.semin

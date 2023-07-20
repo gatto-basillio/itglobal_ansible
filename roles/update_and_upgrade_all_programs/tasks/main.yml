@@ -1,0 +1,6 @@
+---
+# tasks file for update_and_upgrade_all_programs
+
+- name: Update and upgrade all programms
+  ansible.builtin.apt:
+    update_cache: yes

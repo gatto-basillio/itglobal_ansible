@@ -1,0 +1,8 @@
+---
+# tasks file for add_new_user
+
+- name: Add new user
+  ansible.builtin.user:
+    name: "{{ create_user }}"
+    create_home: true
+    shell: /bin/bash

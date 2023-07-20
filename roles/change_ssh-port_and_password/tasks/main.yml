@@ -1,0 +1,17 @@
+---
+# tasks file for change_ssh-port_and_password
+
+- name: Changing SSH-port
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: '^#Port 22'
+    line: 'Port {{ ssh_port }}'
+
+- name: Disabling password autentification
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: '^#PasswordAuthentication yes'
+    line: 'PasswordAuthentication no'
+  notify: Restart SSH service

@@ -1,0 +1,14 @@
+---
+# tasks file for make_user_as_sudoer
+
+- name: Make sure we have a sudo group
+  ansible.builtin.group:
+    name: sudo
+    state: present
+
+- name: Give sudo for user
+  ansible.builtin.user:
+    name: "{{ create_user }}"
+    state: present
+    groups: sudo
+    append: true
