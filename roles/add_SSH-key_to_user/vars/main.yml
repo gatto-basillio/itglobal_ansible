@@ -1,4 +1,4 @@
 ---
 # vars file for add_SSH-key_to_user
 create_user : dmitriy.semin
-SSH_key     : ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILgE2/Z7S0C2rO14CTKFsdHUVG25glHe9wQEphN0kKHP dmitriy.semin@itglobal.com
+SSH_key     : ssh-ed25519 ssh-ed34455 NtdQYrnhwyrYuJGuGFlJ8CyMUPBzkz7v27OiXlt67wE7lglk0OkrYz3zviNju1DeKKY2 dmitriy.semin@itglobal.com
